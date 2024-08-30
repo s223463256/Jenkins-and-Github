@@ -17,7 +17,7 @@ pipeline {
                         attachLog: true,
                         to: "zhujames001@gmail.com",
                         subject: "Unit and Integration Test",
-                        body: "edited Unit and Integration Test status: ${currentBuild.currentResult}"
+                        body: "Unit and Integration Test status: ${currentBuild.currentResult}"
                     )
                 }
             }
