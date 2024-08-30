@@ -14,7 +14,7 @@ pipeline{
             post{
                 always{
                     emailext attachLOG: true,
-                    mail to: "zhujames001@gmail.com",
+                    to: "zhujames001@gmail.com",
                     subject: "Unit and integration test",
                     body: "Unit and integration test status: ${currentBuild.result}"
                 }
@@ -32,7 +32,7 @@ pipeline{
             post{
                 always{
                     emailext attachLOG: true,
-                    mail to: "zhujames001@gmail.com",
+                    to: "zhujames001@gmail.com",
                     subject: "Security Scan",
                     body: "Security scan result status: ${currentBuild.result}"
                 }
