@@ -1,70 +1,54 @@
-pipeline {
+pipeline{
     agent any
-    stages {
-        stage("Build") {
-            steps {
+    stages{
+        stage("Build"){
+            steps{
                 echo "Building code using Maven"
             }
         }
-        stage("Unit and Integration tests") {
-            steps {
+        stage("Unit and Integration tests"){
+            steps{
                 echo "Running unit tests using tool: NUnit"
                 echo "Running integration tests using tool: Testsima"
             }
-            post {
-                always {
-                    emailext(
-                        attachLog: true,
-                        to: "zhujames001@gmail.com",
-                        subject: "Unit and Integration Test",
-                        body: "Unit and Integration Test status: ${currentBuild.currentResult}"
-                    )
+            post{
+                always{
+                    mail to: "zhujames001@gmail.com",
+                    subject: "Unit and integration test",
+                    body: "Unit and integration test status: ${currentBuild.result}"
                 }
             }
         }
-        stage("Code Analysis") {
-            steps {
-                echo "Analyzing code for standard tests, running through SonarQube"
+        stage("Code Analysis"){
+            steps{
+                echo "Analysing code for standard tests, running through SonarQube"
             }
         }
-        stage("Security Scan") {
-            steps {
+        stage("Security Scan"){
+            steps{
                 echo "Performing security scans using tool: OWASP Dependency-Check"
             }
-            post {
-                always {
-                    emailext(
-                        attachLog: true,
-                        to: "zhujames001@gmail.com",
-                        subject: "Security Scan",
-                        body: "Security Scan result status: ${currentBuild.currentResult}"
-                    )
+            post{
+                always{
+                    mail to: "zhujames001@gmail.com",
+                    subject: "Security Scan",
+                    body: "Security scan result status: ${currentBuild.result}"
                 }
             }
         }
-        stage("Deploy to Staging") {
-            steps {
-                echo "Deploying application to staging environment using tool: Amazon Web Services (AWS)"
+        stage("Deploy to staging"){
+            steps{
+                echo "Deploying application to staging events using tool: Amazon Web services(AWS)"
             }
         }
-        stage("Integration Tests on Staging") {
-            steps {
+        stage("Integration Tests on Staging"){
+            steps{
                 echo "Running integration tests on staging using tool: Selenium"
             }
-            post {
-                always {
-                    emailext(
-                        attachLog: true,
-                        to: "zhujames001@gmail.com",
-                        subject: "Integration Tests on Staging",
-                        body: "Integration Tests on Staging status: ${currentBuild.currentResult}"
-                    )
-                }
-            }
         }
-        stage("Deploy to Production") {
-            steps {
-                echo "Deploying application to production using Amazon Web Services (AWS)"
+        stage("Deploy to Production"){
+            steps{
+                echo "Deploying application to production using Amazon Web services(AWS)"
             }
         }
     }
