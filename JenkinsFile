@@ -16,7 +16,7 @@ pipeline {
                     emailext(
                         attachLog: true,
                         to: "zhujames001@gmail.com",
-                        subject: "edited Unit and Integration Test",
+                        subject: "Unit and Integration Test",
                         body: "Unit and Integration Test status: ${currentBuild.currentResult}"
                     )
                 }
@@ -50,16 +50,6 @@ pipeline {
         stage("Integration Tests on Staging") {
             steps {
                 echo "Running integration tests on staging using tool: Selenium"
-            }
-            post {
-                always {
-                    emailext(
-                        attachLog: true,
-                        to: "zhujames001@gmail.com",
-                        subject: "Integration Tests on Staging",
-                        body: "Integration Tests on Staging status: ${currentBuild.currentResult}"
-                    )
-                }
             }
         }
         stage("Deploy to Production") {
