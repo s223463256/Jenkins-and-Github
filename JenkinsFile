@@ -16,7 +16,7 @@ pipeline {
                     emailext(
                         attachLog: true,
                         to: "zhujames001@gmail.com",
-                        subject: "Unit and Integration Test",
+                        subject: "Edited: Unit and Integration Test",
                         body: "Unit and Integration Test status: ${currentBuild.currentResult}"
                     )
                 }
@@ -36,7 +36,7 @@ pipeline {
                     emailext(
                         attachLog: true,
                         to: "zhujames001@gmail.com",
-                        subject: "Security Scan",
+                        subject: "Edited Security Scan",
                         body: "Security Scan result status: ${currentBuild.currentResult}"
                     )
                 }
