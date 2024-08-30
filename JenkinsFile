@@ -31,8 +31,7 @@ pipeline {
             post {
                 always {
                     emailext(
-                        attachLog: true,
-                        compressLog: true,
+                        attachLog: false,
                         to: "zhujames001@gmail.com",
                         subject: "Security Scan",
                         body: "Security Scan result status: ${currentBuild.currentResult}"
