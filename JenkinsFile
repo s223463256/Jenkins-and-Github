@@ -13,13 +13,9 @@ pipeline {
             }
             post {
                 always {
-                    emailext(
-                        attachLog: true,
-                        compressLog: true,
-                        to: "zhujames001@gmail.com",
+                        mail to: "zhujames001@gmail.com",
                         subject: "Unit and Integration Test",
                         body: "Unit and Integration Test status: ${currentBuild.currentResult}"
-                    )
                 }
             }
         }
