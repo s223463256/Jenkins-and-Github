@@ -3,15 +3,68 @@ pipeline{
     stages{
         stage("Build"){
             steps{
-                echo "Building ..."
+                echo "Building code using Maven"
+            }
+        }
+        stage("Unit and Integration tests"){
+            steps{
+                echo "Running unit tests using tool: NUnit"
+                echo "Running integration tests using tool: Testsima"
             }
             post{
-                success{
+                always{
+                    emailext attachLog: true,
                     mail to: "zhujames001@gmail.com",
-                    subject: "Build Status Email",
-                    body: "Build was successful!"
+                    subject: "Unit and integration test",
+                    body: "Unit and integration test status: ${currentBuild.result}"
                 }
             }
         }
+        stage("Code Analysis"){
+            steps{
+                echo "Analysing code for standard tests, running through SonarQube"
+            }
+        }
+        stage("Security Scan"){
+            steps{
+                echo "Performing security scans using tool: OWASP Dependency-Check"
+            }
+            post{
+                always{
+                    emailext attachLog: true,
+                    mail to: "zhujames001@gmail.com",
+                    subject: "Security Scan",
+                    body: "Security scan result status: ${currentBuild.result}"
+                }
+            }
+        }
+        stage("Deploy to staging"){
+            steps{
+                echo "Deploying application to staging events using tool: AWS CLI"
+            }
+        }
+        stage("Integration Tests on Staging"){
+            steps{
+                echo "Running integration tests on staging using tool: Selenium"
+            }
+        }
+        stage("Deploy to Production"){
+            steps{
+                echo "Deploying application to production using AWS EC2 instance"
+            }
+        }
+    }
+
+    post{
+        always{
+            echo "Pipeline execution completed."
+        }
+        success{
+            echo "Pipeline completed successfully!"
+        }
+        failure{
+            echo "Pipeline Failed!"
+        }
+
     }
 }
